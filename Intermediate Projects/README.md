@@ -1,4 +1,4 @@
-`Cyber Security Tools – Advanced Mini Projects`
+`Cyber Security Tools – Intermediate Projects`
 This set of Python projects enhances system and data protection through automation and analysis. The Keylogger Detector identifies suspicious background processes, the File Encryption Tool secures sensitive files, the Network Packet Sniffer monitors network activity, and the Malware Hash Checker detects infected files using hash comparison. Together, they demonstrate practical ways to strengthen cyber defense using simple code.
 
 `keylogger_detector.py`
