@@ -10,7 +10,7 @@ Scans a given URL for phishing indicators like fake domains or suspicious keywor
 `port_scanner.py`
 Scans a list of common network ports to detect which ones are open or closed.
 
-`firewall_analyzer.py & sample_log.txt`
+`firewall_analyzer.py`
 Reads firewall logs and flags any entries with blocked, denied, or failed access attempts.
 
 `How to Run Any Project`
