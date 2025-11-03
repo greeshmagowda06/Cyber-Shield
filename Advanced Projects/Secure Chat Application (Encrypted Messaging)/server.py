@@ -20,6 +20,12 @@ def generate_rsa_keys():
     return priv, pub
 
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Secure chat server")
+    parser.add_argument("--auto", action="store_true", help="Automatically reply to client messages (non-interactive)")
+    args = parser.parse_args()
+
     priv, pub = generate_rsa_keys()
     pub_pem = pub.public_bytes(encoding=serialization.Encoding.PEM,
                                format=serialization.PublicFormat.SubjectPublicKeyInfo)
@@ -35,11 +41,22 @@ def main():
             conn.sendall(pub_pem)
 
             # receive encrypted symmetric key length + data
-            key_len_bytes = conn.recv(4)
+            def recv_all(sock, n):
+                data = b""
+                while len(data) < n:
+                    part = sock.recv(n - len(data))
+                    if not part:
+                        return None
+                    data += part
+                return data
+
+            key_len_bytes = recv_all(conn, 4)
             if not key_len_bytes:
                 return
             key_len = int.from_bytes(key_len_bytes, "big")
-            enc_key = conn.recv(key_len)
+            enc_key = recv_all(conn, key_len)
+            if enc_key is None:
+                return
 
             # decrypt symmetric key
             sym_key = priv.decrypt(
@@ -53,11 +70,13 @@ def main():
             print("Secure channel established. Type 'exit' to quit.")
             while True:
                 # receive encrypted message length + payload
-                len_bytes = conn.recv(4)
+                len_bytes = recv_all(conn, 4)
                 if not len_bytes:
                     break
                 msg_len = int.from_bytes(len_bytes, "big")
-                enc_msg = conn.recv(msg_len)
+                enc_msg = recv_all(conn, msg_len)
+                if enc_msg is None:
+                    break
                 try:
                     msg = f.decrypt(enc_msg).decode()
                 except Exception:
@@ -67,7 +86,12 @@ def main():
                 print("Client:", msg)
                 if msg.strip().lower() == "exit":
                     break
-                reply = input("You: ")
+                if args.auto:
+                    # auto-reply with a simple echo
+                    reply = f"Echo: {msg}"
+                    print(f"Auto-reply: {reply}")
+                else:
+                    reply = input("You: ")
                 enc_reply = f.encrypt(reply.encode())
                 conn.sendall(len(enc_reply).to_bytes(4, "big") + enc_reply)
             print("Connection closed.")

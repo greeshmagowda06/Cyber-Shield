@@ -1,20 +1,14 @@
-"""
-Simple rule-based IDS example using scapy.
-Detects:
- - Port-scan-like behavior: many distinct destination ports from same src IP in short period.
- - High SYN rate from a single IP.
-Run with administrator/root permissions because packet sniffing requires it.
-"""
 
 from scapy.all import sniff, TCP, IP
 from collections import defaultdict, deque
+import sys
 import time
 import threading
 
 # Config
-PORT_SCAN_THRESHOLD = 10       # distinct ports within WINDOW to flag
-SYN_RATE_THRESHOLD = 20       # number of SYNs within WINDOW to flag
-WINDOW = 10                   # seconds sliding window
+PORT_SCAN_THRESHOLD = 10       
+SYN_RATE_THRESHOLD = 20       
+WINDOW = 10                   
 
 # state
 recent_ports = defaultdict(lambda: deque())  # src_ip -> deque of (timestamp, dst_port)
@@ -60,6 +54,15 @@ def pruner():
 
 if __name__ == "__main__":
     print("=== Simple IDS (educational) ===")
+    
+    # Check for administrator privileges
+    if sys.platform.startswith('win'):
+        import ctypes
+        if not ctypes.windll.shell32.IsUserAnAdmin():
+            print("Error: This script requires administrator privileges to run on Windows.")
+            print("Please run the script as an administrator.")
+            sys.exit(1)
+
     print("Sniffing interface. Press Ctrl+C to stop. (Run as root/Administrator)")
     # start pruner thread
     t = threading.Thread(target=pruner, daemon=True)

@@ -1,3 +1,4 @@
+import os
 from cryptography.fernet import Fernet
 
 def generate_key():
@@ -7,7 +8,11 @@ def generate_key():
     print("🔑 Key generated and saved as secret.key")
 
 def load_key():
-    return open("secret.key", "rb").read()
+    try:
+        return open("secret.key", "rb").read()
+    except FileNotFoundError:
+        print("Error: 'secret.key' not found. Please generate a key first (option 1).")
+        exit()
 
 def encrypt_file(filename):
     key = load_key()
@@ -39,11 +44,26 @@ if __name__ == "__main__":
     print("1 Generate Key\n2 Encrypt File\n3 Decrypt File")
     choice = input("Choose an option: ")
 
+    # Get the directory where the script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
     if choice == "1":
         generate_key()
     elif choice == "2":
         fname = input("Enter filename to encrypt: ")
+        # Convert to absolute path if not already
+        if not os.path.isabs(fname):
+            fname = os.path.join(script_dir, fname)
+        if not os.path.exists(fname):
+            print(f"Error: File not found: {fname}")
+            exit()
         encrypt_file(fname)
     elif choice == "3":
         fname = input("Enter filename to decrypt: ")
+        # Convert to absolute path if not already
+        if not os.path.isabs(fname):
+            fname = os.path.join(script_dir, fname)
+        if not os.path.exists(fname):
+            print(f"Error: File not found: {fname}")
+            exit()
         decrypt_file(fname)

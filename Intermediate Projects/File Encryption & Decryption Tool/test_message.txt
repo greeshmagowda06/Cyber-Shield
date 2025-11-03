@@ -1,0 +1,3 @@
+This is a secret message that needs to be encrypted.
+It contains multiple lines of text to test the encryption tool.
+Confidential information: XYZ123
