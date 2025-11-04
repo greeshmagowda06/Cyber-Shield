@@ -24,9 +24,9 @@ Detects abnormal network activity and potential cyber attacks using machine lear
 `Digital Forensics Analyzer` forensic_scan.py
 Extracts metadata and timestamps from files and folders to assist in digital investigations and evidence collection.
 
-`Keylogger & Malware Behavior Sandbox (Safe Simulation)` sandbox_sim.py & detector.py
-Simulates malware-like behaviors in a controlled environment and detects them using heuristic analysis — without causing harm.
-Note: Run sandbox_sim.py in one terminal, detector.py in another.
+    `Keylogger & Malware Behavior Sandbox (Safe Simulation)` sandbox_sim.py & detector.py
+    Simulates malware-like behaviors in a controlled environment and detects them using heuristic analysis — without causing harm.
+    Note: Run sandbox_sim.py in one terminal, detector.py in another.
 
 `Dark Web Crawler (Safe Version)` tor_crawler.py
 Safely connects through the Tor network to collect metadata from .onion websites for research and cyber threat intelligence.
