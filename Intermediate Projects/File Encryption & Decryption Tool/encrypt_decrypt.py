@@ -3,13 +3,17 @@ from cryptography.fernet import Fernet
 
 def generate_key():
     key = Fernet.generate_key()
-    with open("secret.key", "wb") as key_file:
+    # Get the directory where the script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    key_path = os.path.join(script_dir, "secret.key")
+    with open(key_path, "wb") as key_file:
         key_file.write(key)
     print("🔑 Key generated and saved as secret.key")
 
 def load_key():
     try:
-        return open("secret.key", "rb").read()
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        return open(os.path.join(script_dir, "secret.key"), "rb").read()
     except FileNotFoundError:
         print("Error: 'secret.key' not found. Please generate a key first (option 1).")
         exit()

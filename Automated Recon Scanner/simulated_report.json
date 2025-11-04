@@ -1,0 +1,50 @@
+{
+  "10.0.69.202": {
+    "mac": "78:AF:08:1E:75:5D",
+    "ports": {
+      "21": "closed",
+      "22": "open",
+      "23": "closed",
+      "25": "closed",
+      "53": "closed",
+      "80": "open",
+      "110": "closed",
+      "139": "closed",
+      "143": "closed",
+      "443": "closed",
+      "3389": "closed"
+    }
+  },
+  "192.168.1.25": {
+    "mac": "00:11:22:AA:BB:CC",
+    "ports": {
+      "21": "closed",
+      "22": "closed",
+      "23": "closed",
+      "25": "closed",
+      "53": "closed",
+      "80": "open",
+      "110": "closed",
+      "139": "closed",
+      "143": "closed",
+      "443": "closed",
+      "3389": "closed"
+    }
+  },
+  "192.168.1.40": {
+    "mac": "66:77:88:99:AA:BB",
+    "ports": {
+      "21": "closed",
+      "22": "closed",
+      "23": "closed",
+      "25": "closed",
+      "53": "closed",
+      "80": "closed",
+      "110": "closed",
+      "139": "closed",
+      "143": "closed",
+      "443": "closed",
+      "3389": "closed"
+    }
+  }
+}

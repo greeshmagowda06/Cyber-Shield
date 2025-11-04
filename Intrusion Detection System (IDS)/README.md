@@ -1,4 +1,4 @@
-# Intrusion Detection System (IDS)
+<!-- Intrusion Detection System (IDS) -->
 
 I’ll implement a practical, deeper IDS here that combines rule-based detection and a simple ML anomaly detector (IsolationForest). It will:
 - sniff TCP packets (requires root/admin) and extract features per source IP per time window,
@@ -36,6 +36,6 @@ Dependencies
 - Add web dashboard (Flask + charts) for alerts, top talkers, timeline.
 - Integrate with syslog / SIEM or email push alerts.
 
-`Ethics & Legal reminder`
+<!-- Ethics & Legal reminder -->
 
 Only run scanning/sniffing/active tests on systems/networks you own or have explicit permission to test. Misuse of these tools may be illegal.
