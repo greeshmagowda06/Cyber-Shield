@@ -103,7 +103,7 @@ def main():
     if choice == "1":
         infile = choose_file_from_dir("\nSelect an image to hide a message in:")
         if not infile: return
-        outfile_name = input("Enter output image file name (e.g., secret.png): ").strip()
+        outfile_name = input("Enter output image file name (e.g., secret.png) to be saved in the 'Steganography/images' folder: ").strip()
         outfile = os.path.join(IMAGE_DIR, outfile_name)
         message = input("Enter the secret message to hide: ").strip()
         encode(infile, outfile, message)
